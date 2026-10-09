@@ -1,3 +1,5 @@
 export { Currency } from './Currency'
 export { Money } from './Money'
 export { IdempotencyKey } from './IdempotencyKey'
+export { SimulatedCard } from './SimulatedCard'
+export type { SimulatedCardProps } from './SimulatedCard'
