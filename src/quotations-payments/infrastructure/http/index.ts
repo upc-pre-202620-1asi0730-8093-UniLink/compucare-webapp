@@ -4,6 +4,7 @@ export type {
   CreateQuotationRequestDto,
   CreateQuotationItemRequestDto,
 } from './dtos/CreateQuotationRequestDto'
+export type { ChangeQuotationStatusRequestDto } from './dtos/ChangeQuotationStatusRequestDto'
 export type {
   QuotationResponseDto,
   QuotationItemResponseDto,

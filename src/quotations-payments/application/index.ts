@@ -1,3 +1,5 @@
 export { CreateQuotationUseCase } from './CreateQuotationUseCase'
 export type { CreateQuotationCommand, CreateQuotationItemCommand } from './commands/CreateQuotationCommand'
+export { ChangeQuotationStatusUseCase } from './ChangeQuotationStatusUseCase'
+export type { ChangeQuotationStatusCommand } from './commands/ChangeQuotationStatusCommand'
 export type { QuotationRepository } from './ports/QuotationRepository'
