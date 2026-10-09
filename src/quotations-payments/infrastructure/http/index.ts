@@ -8,6 +8,7 @@ export type {
 } from './dtos/CreateQuotationRequestDto'
 export type { ChangeQuotationStatusRequestDto } from './dtos/ChangeQuotationStatusRequestDto'
 export type { ProcessQuotationPaymentRequestDto } from './dtos/ProcessQuotationPaymentRequestDto'
+export type { ListQuotationsQueryDto } from './dtos/ListQuotationsQueryDto'
 export type {
   QuotationResponseDto,
   QuotationItemResponseDto,

@@ -1,8 +1,12 @@
 import type { HttpClient } from '../../../shared/infrastructure/http/HttpClient'
-import type { QuotationRepository } from '../../application/ports/QuotationRepository'
+import type {
+  QuotationListFilters,
+  QuotationRepository,
+} from '../../application/ports/QuotationRepository'
 import type { Quotation } from '../../domain/entities/Quotation'
 import type { QuotationDecision } from '../../domain/enums/QuotationDecision'
 import type { ChangeQuotationStatusRequestDto } from './dtos/ChangeQuotationStatusRequestDto'
+import type { ListQuotationsQueryDto } from './dtos/ListQuotationsQueryDto'
 import type { QuotationResponseDto } from './dtos/QuotationResponseDto'
 import { QuotationMapper } from './mappers/QuotationMapper'
 
@@ -41,4 +45,28 @@ export class HttpQuotationRepository implements QuotationRepository {
 
     return QuotationMapper.toDomain(response)
   }
+
+  async list(filters: QuotationListFilters): Promise<Quotation[]> {
+    const query = toQueryString(QuotationMapper.toListQuery(filters))
+    const response = await this.http.get<QuotationResponseDto[]>(`${QUOTATIONS_PATH}${query}`)
+
+    if (!Array.isArray(response)) {
+      throw new Error('GET /api/v1/quotations did not return an array')
+    }
+
+    return response.map((dto) => QuotationMapper.toDomain(dto))
+  }
+}
+
+function toQueryString(query: ListQuotationsQueryDto): string {
+  const params = new URLSearchParams()
+
+  for (const [key, value] of Object.entries(query)) {
+    if (value !== undefined) {
+      params.set(key, value)
+    }
+  }
+
+  const serialized = params.toString()
+  return serialized ? `?${serialized}` : ''
 }

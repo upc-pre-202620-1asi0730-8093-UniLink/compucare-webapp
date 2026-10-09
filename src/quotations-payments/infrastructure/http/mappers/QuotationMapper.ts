@@ -1,9 +1,11 @@
+import type { QuotationListFilters } from '../../../application/ports/QuotationRepository'
 import { Quotation } from '../../../domain/entities/Quotation'
 import { QuotationItem } from '../../../domain/entities/QuotationItem'
 import { QuotationItemKind } from '../../../domain/enums/QuotationItemKind'
 import { QuotationStatus } from '../../../domain/enums/QuotationStatus'
 import { Money } from '../../../domain/value-objects/Money'
 import type { CreateQuotationRequestDto } from '../dtos/CreateQuotationRequestDto'
+import type { ListQuotationsQueryDto } from '../dtos/ListQuotationsQueryDto'
 import type { QuotationResponseDto } from '../dtos/QuotationResponseDto'
 
 const quotationStatuses = new Set<string>(Object.values(QuotationStatus))
@@ -23,6 +25,15 @@ export const QuotationMapper = {
         quantity: item.quantity,
         unitPrice: item.unitPrice.amount,
       })),
+    }
+  },
+
+  toListQuery(filters: QuotationListFilters): ListQuotationsQueryDto {
+    return {
+      status: filters.status,
+      requestId: filters.requestId,
+      decidedFrom: filters.decidedFrom?.toISOString(),
+      decidedTo: filters.decidedTo?.toISOString(),
     }
   },
 
